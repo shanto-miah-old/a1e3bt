@@ -148,7 +148,7 @@ class Auth extends CI_Controller {
 	{
 
 		$this->_redirect();
-		
+
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<p><i class="ion-alert-circled"></i> ', '</p>');
 
@@ -235,6 +235,9 @@ class Auth extends CI_Controller {
 			show_404();
 		}
 
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<p><i class="ion-alert-circled"></i> ', '</p>');
+
 		$this->data['title'] = $this->lang->line('reset_password_heading');
 		
 		$user = $this->ion_auth->forgotten_password_check($code);
@@ -245,6 +248,7 @@ class Auth extends CI_Controller {
 
 			$this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|matches[new_confirm]');
 			$this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
+			$this->form_validation->set_rules('user_id', 'user_id', 'required|integer');
 
 			if ($this->form_validation->run() === FALSE)
 			{
@@ -253,37 +257,19 @@ class Auth extends CI_Controller {
 				// set the flash data error message if there is one
 				$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-				$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-				$this->data['new_password'] = [
-					'name' => 'new',
-					'id' => 'new',
-					'type' => 'password',
-					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-				];
-				$this->data['new_password_confirm'] = [
-					'name' => 'new_confirm',
-					'id' => 'new_confirm',
-					'type' => 'password',
-					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-				];
-				$this->data['user_id'] = [
-					'name' => 'user_id',
-					'id' => 'user_id',
-					'type' => 'hidden',
-					'value' => $user->id,
-				];
-				$this->data['csrf'] = $this->_get_csrf_nonce();
+				$this->data['user_id']	=	$user->id;
+				$this->data['csrf'] = $this->csrf;
 				$this->data['code'] = $code;
 
 				// render
-				$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'reset_password', $this->data);
+				$this->load->view('auth/reset_password', $this->data);
 			}
 			else
 			{
 				$identity = $user->{$this->config->item('identity', 'ion_auth')};
 
 				// do we have a valid request?
-				if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id'))
+				if ($user->id != $this->input->post('user_id'))
 				{
 
 					// something fishy might be up
@@ -306,7 +292,7 @@ class Auth extends CI_Controller {
 					else
 					{
 						$this->session->set_flashdata('message', $this->ion_auth->errors());
-						redirect('auth/reset_password/' . $code, 'refresh');
+						redirect('reset_password/' . $code, 'refresh');
 					}
 				}
 			}
