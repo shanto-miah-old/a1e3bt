@@ -11,7 +11,7 @@
 <title><?php echo($title); ?></title>
 
 <!-- Stylesheet Linking -->
-<?php echo(link_tag('assets/sheets/stylesheet/bootstrap-grid.min.css')); ?>
+<?php echo(link_tag('assets/bootstrap/css/bootstrap-grid.min.css')); ?>
 
 <?php echo(link_tag('assets/sheets/stylesheet/stylesheet.css')); ?>
 
