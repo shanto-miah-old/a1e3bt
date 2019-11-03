@@ -6,7 +6,7 @@ by [Shanto Miah](https://shantoisonline.com), [Azad](#)
 
 Project a1e3bt is an open source social media website using Codeligniter.
 
-## Server Requirements
+### Server Requirements
 
 1 `PHP version 5.6 or newer is recommended.`
 
