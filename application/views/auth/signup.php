@@ -33,7 +33,7 @@
 	<div class="row justify-content-center">
 		<div class="col-md-7">
 
-			<form action="#" method="POST">
+			<form action="" method="POST">
 
 				<input type="hidden" name="<?php echo($csrf['name']); ?>" value="<?php echo($csrf['hash']); ?>" />
 
