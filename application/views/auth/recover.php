@@ -11,7 +11,7 @@
 <title><?php echo($title); ?></title>
 
 <!-- Stylesheet Linking -->
-<?php echo(link_tag('assets/sheets/stylesheet/bootstrap-grid.min.css')); ?>
+<?php echo(link_tag('assets/bootstrap/css/bootstrap-grid.min.css')); ?>
 
 <?php echo(link_tag('assets/sheets/stylesheet/stylesheet.css')); ?>
 
@@ -31,10 +31,14 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-7">
+			<div class="error-message">
+				<?php echo($message); ?>
+			</div>
 			<form action="" method="POST">
+				<input type="hidden" name="<?php echo($csrf['name']); ?>" value="<?php echo($csrf['hash']); ?>" />
 				<div class="input-container">
 					<i class="ion-ios-email-outline icon"></i>
-					<input type="email" name="email" placeholder="Enter Email Address" class="input-field" required/>
+					<input type="email" name="identity" placeholder="Enter Email Address" class="input-field" required/>
 				</div>
 				<button type="submit" name="submit" class="btn">Reset Password</button>
 			</form>
