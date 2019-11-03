@@ -146,9 +146,11 @@ class Auth extends CI_Controller {
 
 	public function recover()
 	{
+
+		$this->_redirect();
+		
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<p><i class="ion-alert-circled"></i> ', '</p>');
-		$this->_redirect();
 
 		if ($this->config->item('identity', 'ion_auth') != 'email')
 		{
