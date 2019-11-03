@@ -57,5 +57,6 @@ $route['join']	=	'auth/auth/signup';
 $route['signin']	=	'auth/auth/signin';
 $route['logout']	=	'auth/auth/logout';
 $route['recover']	=	'auth/auth/recover';
+$route['reset_password/(:any)']	=	'auth/auth/reset_password/$1';
 $route['varify/(:num)']	=	'auth/auth/varify/$1';
 $route['varify/(:num)/(:any)']	=	'auth/auth/varify/$1/$2';
